@@ -1,26 +1,59 @@
 import React from 'react';
-import logo from './logo.svg';
+import Nav from './Nav';
+import register from './register';
+import AllUsers from './AllUsers';
+import Footer from './Footer';
+import profile from'./profile';
+import logout from'./logout';
+import PrivateRoute from './PrivateRoute';
+
+ 
+//var cors = require('cors');
+
+import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
+
 import './App.css';
+import login from './login';
+//import { Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+    <div className ="App">
+   <Nav />
+     <Switch>
+       <Route path = "/"exact component = {home}/>
+       <Route path = "/register"  component = {register}/>
+       <Route path ="/users" exact component ={AllUsers}/>
+       <Route path ="/login" exact component ={login}/>
+       <PrivateRoute path ="/profile" exact component ={profile}/>
+       <Route path ="/logout"  component ={logout}/>
+
+
+     </Switch>
+     
+     <Footer />
+     
+     </div>
+     
+    
+   </Router>
+   
+     
+   
+   
+   
   );
+  
 }
+const home = ()=>(
+  <div>
+    <h1>Welcome Home</h1>
+  </div>
+
+);
+
+//app.use(cors());
+
 
 export default App;
