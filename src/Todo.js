@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 
 /*export const del = props => (
@@ -10,6 +11,9 @@ import axios from 'axios';
 )*/
 
 class Todo extends Component {
+  
+  
+  
 
   constructor(props) {
         super(props);
@@ -18,22 +22,30 @@ class Todo extends Component {
         this.desactivateAdmin=this.desactivateAdmin.bind(this);
         this.desactivateUser=this.desactivateUser.bind(this);
         this.grantToAdmin=this.grantToAdmin.bind(this);
-
+        this.sendConfirmationMail=this.sendConfirmationMail.bind(this);
+        
+       
         
     }
 
     deleteUser() {
         axios.delete('http://localhost:4000/api/user/deleteuser/'+this.props.obj._id)
             .then(console.log('Deleted'))
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+            window.location.reload(false);
     }
 
 
-    activateUser() {
-      axios.put('http://localhost:4000/api/user/activateUser/'+this.props.obj._id)
-          .then(console.log('Deleted'))
+    activateUser() { 
+          axios.put('http://localhost:4000/api/user/activateUser/'+this.props.obj._id)
+          .then(console.log('Deleted1'))
           .catch(err => console.log(err));
-          window.location.reload(false);
+           window.location.reload(false);
+  }
+  sendConfirmationMail(){
+    const mail={destination:''};
+    mail.destination=this.props.obj.email;
+    axios.post('http://localhost:4000/api/mails/send',mail);
   }
 
   grantToAdmin() {
@@ -68,7 +80,7 @@ desactivateUser() {
     let buttoForAdminActivation;
 
     if (this.props.obj.isactive.toString()=='false') {
-      buttonForUserActivation = <button onClick={this.activateUser} className="btn btn-primary">Activate</button>;
+      buttonForUserActivation = <button onClick={()=>{this.activateUser();this.sendConfirmationMail()}} className="btn btn-primary">Activate</button>;
     } else {
       buttonForUserActivation = <button onClick={this.desactivateUser} className="btn btn-primary">DisactivateUser</button>;
     }

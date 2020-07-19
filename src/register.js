@@ -1,5 +1,6 @@
 import React  from 'react';
 import axios from 'axios';
+//import {Alert}  from 'react-alert'
 //import useEffect from 'react';
 //var cors = require('cors')
 //import {Link} from 'react-router-dom';
@@ -26,13 +27,22 @@ handleSubmit = event=>{
     password:this.state.password
   };
   console.log(user,"user")
-  axios.post(`http://localhost:4000/api/user/register`,user).then(res=>{
-    console.log(res);
-    console.log(res.data);
-    this.props.history.push(`/login`);
+  let a=axios.post(`http://localhost:4000/api/user/register`,user).then(res=>{
+   console.log(res);
+   console.log(res.data);
+   
+   
+  this.props.history.push(`/login`);
+    
 
 
-  });
+  }).catch((error) => {
+    alert(error.response.data)
+   })
+  
+  
+  
+  
 };
 
 

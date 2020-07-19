@@ -1,5 +1,6 @@
 import React  from 'react';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 //const jwt = require('jsonwebtoken');
 
 //import useEffect from 'react';
@@ -38,11 +39,16 @@ handleSubmit = event=>{
 
 
     console.log('token From local',localStorage.getItem('token'));
-    
-   this.props.history.push(`/profile`);
+    if (jwt_decode(localStorage.getItem('token')).role=='admin')
+   {this.props.history.push(`/users`);
+   window.location.reload(false);}
+   else {this.props.history.push(`/profile`);
+   window.location.reload(false);}
     
 
-  });
+  }).catch((error) => {
+    alert(error.response.data)
+   });
 
   
 
