@@ -9,6 +9,9 @@ import PrivateRoute from './PrivateRoute';
 
 import jwt_decode from 'jwt-decode';
 import {Redirect }from 'react-router-dom';
+import cover from './image/cover.jpg';
+
+import ReactDOM from 'react-dom';
 
 
 
@@ -20,6 +23,12 @@ import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
 
 import './App.css';
 import login from './login';
+import transaction from './blockchain/transaction';
+import bypoints from './blockchain/bypoints';
+import blockList from './blockchain/blockList';
+import Detail from './blockchain/Detail';
+import Wallet from './blockchain/Wallet';
+
 //import { Route } from 'react-router-dom';
 const Protecadmin = ({ component: Component, user, ...rest }) => {
   return (
@@ -43,23 +52,35 @@ const Protecadmin = ({ component: Component, user, ...rest }) => {
     } />
   )
 }
-
+const backgroundImage ={width:"100%"}
 
 function App() {
   return (
     <Router>
-    <div className ="App">
+    <div className ="App"  >
    <Nav />
+   
+   
+  
+  
+      
      <Switch>
-       <Route path = "/"exact component = {home}/>
+       
+     <Route path = "/"exact component = {home}/>
        <Route path = "/register"  component = {register}/>
        <Protecadmin path ="/users" exact component ={AllUsers}/>
+       <Protecadmin path ="/blocks" exact component ={blockList}/>
+       <Protecadmin path ="/detail" exact component ={Detail}/>
        <Route path ="/login" exact component ={login}/>
        <PrivateRoute path ="/profile" exact component ={profile}/>
+       <PrivateRoute path ="/acheter" exact component ={bypoints}/>
+       <PrivateRoute path ="/transaction" exact component ={transaction}/>
+       <PrivateRoute path ="/wallet" exact component ={Wallet}/>
        <Route path ="/logout"  component ={logout}/>
 
-
+      
      </Switch>
+    
      
      
      
@@ -75,14 +96,15 @@ function App() {
   );
   
 }
-const home = ()=>(
-  <div>
-    <h1>Welcome Home</h1>
-  </div>
 
-);
 
 //app.use(cors());
 
+const home = ()=>(
+  <div>
+   
+  </div>
+
+);
 
 export default App;

@@ -98,11 +98,8 @@ desactivateUser() {
       <td >{this.props.obj.email}</td>
       <td >{this.props.obj.role}</td>
       <td >{this.props.obj.isactive.toString()}</td>
-      <td>
-            <button className="btn btn-primary">Edit</button></td>
-          
-          <td>
-            <button onClick={this.deleteUser}  className="btn btn-danger">Delete</button></td>
+      
+           <td> <button onClick={this.deleteUser}  className="btn btn-danger">Delete</button></td>
           
   
          <td>{buttonForUserActivation}</td>

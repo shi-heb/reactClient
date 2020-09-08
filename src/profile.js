@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 ///const jwt = require('jsonwebtoken');
 
 class profile extends Component {
@@ -9,7 +10,9 @@ class profile extends Component {
         super()
         this.state = {
         name: '',
-      email: ''
+      email: '',
+      amount:'',
+      wallet:''
        
       }}
     
@@ -18,14 +21,38 @@ class profile extends Component {
       //const token = JSON.parse(localStorage.getItem('user'));
       const token = localStorage.token;
       const decoded = jwt_decode(token);
+      const id=decoded._id;
       
-      
+    const l= axios.get(`http://localhost:4000/api/user/amount/`+id).then(res=>{
+    console.log(res);
+    var result = res.data;
+    console.log(result);
+    const b = JSON.stringify(result);
+        const b1 = JSON.parse(b);
+        this.setState({amount:b1.a})
+        
+    })
+
+    const ll= axios.get(`http://localhost:4000/api/user/wallet/`+id).then(res=>{
+    console.log(res);
+    var result = res.data;
+    console.log(result);
+    const b = JSON.stringify(result);
+        const b1 = JSON.parse(b);
+        this.setState({wallet:b1.a})
+        
+    })
+    
+        
       
      // const decoded = jwt_decode(token);
       this.setState({
         name: decoded.nom,
        
-        email: decoded.email
+        email: decoded.email,
+        amount:l.b1,
+        
+       // amount:m.c,
       })
     }
 
@@ -39,13 +66,25 @@ class profile extends Component {
               <table className="table col-md-6 mx-auto">
                 <tbody>
                   <tr>
-                    <td>Fist Name</td>
+                    <td><h5>Fist Name</h5></td>
                     <td>{this.state.name}</td>
                   </tr>
                   
                   <tr>
-                    <td>Email</td>
+                    <td><h5>Email</h5></td>
                     <td>{this.state.email}</td>
+                  </tr>
+
+                  <tr>
+                    <td><h5>Amount</h5></td>
+                    <td>You have {this.state.amount} teo points</td>
+                    
+                  </tr>
+
+                  <tr>
+                    <td><h5>Credit</h5></td>
+                    
+                    <td>You have {this.state.wallet} $ in your wallet</td>
                   </tr>
                 </tbody>
               </table>

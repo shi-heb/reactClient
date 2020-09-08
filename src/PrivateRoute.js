@@ -11,19 +11,30 @@ import jwt_decode from 'jwt-decode';
   
   
 
-const PrivateRoute = ({ component: Component, ...rest }) => (  
-  <Route {...rest} render={props => (
-    localStorage.getItem('token')  ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to={{
-        pathname: "/login",
+const PrivateRoute = ({ component: Component, user, ...rest }) => {
+  return (
+    <Route {...rest} render={
+      props => {
+        if (localStorage.getItem('token')===null) {
+          alert('accesss denied, you must register ');
+          
+          window.location = '/login';
+            
+            }
+        if ((jwt_decode(localStorage.getItem('token')).role=='user')&&(jwt_decode(localStorage.getItem('token')).isactive==true)) {
+          return <Component {...rest} {...props} />
+         
+        } 
         
-        }}
-      />
-    )
-  )} />
-);
+        
+        else {alert('accesss denied')
+        window.location = '/login';
+          
+        }
+      }
+    } />
+  )
+}
 
 
 
