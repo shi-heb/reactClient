@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-import '../blockchain/blocCss.css';
-import c from '../blockchain/Detail';
+import './blocCss.css';
+//import c from './Detail';
 import Popup from "reactjs-popup";
 
 

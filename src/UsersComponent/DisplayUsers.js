@@ -1,7 +1,7 @@
 import React  from 'react';
 import axios from 'axios';
 //import del from './tableRow';
-import Todo from './Todo';
+import Todo from '../UsersComponent/Todo';
 
 
 //import useEffect from 'react';
@@ -9,7 +9,7 @@ import Todo from './Todo';
 
 
 
-import './App.css';
+import '../App.css';
 /*const Todo = props => (
   <tr>
       <td> {props.obj.name}</td>
@@ -42,7 +42,7 @@ import './App.css';
 
 
 
-export default  class AllUsers extends React.Component {
+export default  class DisplayUsers extends React.Component {
 
   constructor(props) {
     super(props)

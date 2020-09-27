@@ -1,10 +1,10 @@
 import React from 'react';
 import Nav from './Nav';
-import register from './register';
-import AllUsers from './AllUsers';
+import register from './UsersComponent/register';
+import DisplayUsers from './UsersComponent/DisplayUsers';
 
-import profile from'./profile';
-import logout from'./logout';
+import profile from'./UsersComponent/profile';
+import logout from'./UsersComponent/logout';
 import PrivateRoute from './PrivateRoute';
 
 import jwt_decode from 'jwt-decode';
@@ -22,12 +22,12 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
 
 import './App.css';
-import login from './login';
-import transaction from './blockchain/transaction';
-import bypoints from './blockchain/bypoints';
-import blockList from './blockchain/blockList';
-import Detail from './blockchain/Detail';
-import Wallet from './blockchain/Wallet';
+import login from './UsersComponent/login';
+import transaction from './blockchainComponent/transaction';
+import bypoints from './blockchainComponent/bypoints';
+import blockList from './blockchainComponent/blockList';
+//import Detail from './blockchainComponent/Detail';
+import Wallet from './blockchainComponent/Wallet';
 
 //import { Route } from 'react-router-dom';
 const Protecadmin = ({ component: Component, user, ...rest }) => {
@@ -68,9 +68,9 @@ function App() {
        
      <Route path = "/"exact component = {home}/>
        <Route path = "/register"  component = {register}/>
-       <Protecadmin path ="/users" exact component ={AllUsers}/>
+       <Protecadmin path ="/users" exact component ={DisplayUsers}/>
        <Protecadmin path ="/blocks" exact component ={blockList}/>
-       <Protecadmin path ="/detail" exact component ={Detail}/>
+       
        <Route path ="/login" exact component ={login}/>
        <PrivateRoute path ="/profile" exact component ={profile}/>
        <PrivateRoute path ="/acheter" exact component ={bypoints}/>

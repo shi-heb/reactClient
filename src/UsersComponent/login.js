@@ -1,15 +1,17 @@
 import React  from 'react';
 import axios from 'axios';
-//import {Alert}  from 'react-alert'
+import jwt_decode from 'jwt-decode';
+//const jwt = require('jsonwebtoken');
+
 //import useEffect from 'react';
 //var cors = require('cors')
 //import {Link} from 'react-router-dom';
 
-import './App.css';
+import '../App.css';
 
-export default  class register extends React.Component {
+export default  class login extends React.Component {
 
-state ={name:'',
+state ={
 email:'',
 password:'',
 };
@@ -22,26 +24,34 @@ handleSubmit = event=>{
   event.preventDefault();
  
   const user ={
-    name:this.state.name,
+    
     email:this.state.email,
     password:this.state.password
   };
   console.log(user,"user")
-  let a=axios.post(`http://localhost:4000/api/user/register`,user).then(res=>{
-   console.log(res);
-   console.log(res.data);
-   
-   
-  this.props.history.push(`/login`);
+  axios.post(`http://localhost:4000/api/user/login`,user).then(res=>{
+    console.log(res);
+    localStorage.setItem('token', res.data['token']);
+   // localStorage.setItem('user', JSON.stringify(res.data));
+     //localStorage.setItem('user', user)
     
+    console.log(res.data);
 
+
+    console.log('token From local',localStorage.getItem('token'));
+    if (jwt_decode(localStorage.getItem('token')).role=='admin')
+   {this.props.history.push(`/users`);
+   window.location.reload(false);}
+   else {this.props.history.push(`/profile`);
+   window.location.reload(false);}
+    
 
   }).catch((error) => {
     alert(error.response.data)
-   })
+   });
+
   
-  
-  
+
   
 };
 
@@ -50,37 +60,26 @@ render(){
   return (
     
     <div className="container">
-        <div className="row">
-          <div className="col-md-6 mt-5 mx-auto">
-            <form noValidate onSubmit={this.handleSubmit}>
-            <h1 className="h3 mb-3 font-weight-normal">Register</h1>
-            <div className="form-group">
-            
+    <div className="row">
+      <div className="col-md-6 mt-5 mx-auto">
+        <form noValidate onSubmit={this.handleSubmit}>
+        <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
        
-            <label htmlFor="name">First name</label>
+      
+       
+       
+        <div className="form-group">
+                <label htmlFor="email">Email address</label>
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
-                  name="name"
-                  placeholder="Enter your first name"
-                  value={this.state.name}
+                  name="email"
+                  placeholder="Enter email"
+                  value={this.state.email}
                   onChange={this.handleChange}
                 />
-                </div>
-
-                <div className="form-group">
-       
-       <label htmlFor="name">Email</label>
-           <input
-             type="email"
-             className="form-control"
-             name="email"
-             placeholder="Enter your email"
-             value={this.state.email}
-             onChange={this.handleChange}
-           />
-           </div>
-           <div className="form-group">
+              </div>
+              <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input
                   type="password"
@@ -95,19 +94,18 @@ render(){
                 type="submit"
                 className="btn btn-lg btn-primary btn-block"
               >
-                Register
+                Sign in
               </button>
-              </form>
-          </div>
+     
+      </form>
+      </div>
         </div>
       </div>
-       
-       
-     
-     
+    
     
     
   );
+  
 }
      
 }

@@ -76,7 +76,7 @@ componentDidMount() {
         
          
          
-          <h4>1$ = 4 teo</h4>
+          <h4>1$ = 3 teo</h4>
                 
                 <div className="form-group">
                   <label htmlFor="amount">Amount</label>

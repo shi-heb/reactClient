@@ -4,7 +4,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 //import { Grid, Card, Icon, Image , Button} from 'semantic-ui-react';
 
-import TodoBlock from'../blockchain/TodoBlock';
+import TodoBlock from'../blockchainComponent/TodoBlock';
 
 
 export default  class blockList extends React.Component {

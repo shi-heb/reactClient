@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link }from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
-import logout from'./logout';
+//import logout from'./UsersComponent/logout';
 import './App.css';
 
 function Nav() {

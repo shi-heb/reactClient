@@ -50,7 +50,7 @@ class profile extends Component {
         name: decoded.nom,
        
         email: decoded.email,
-        amount:l.b1,
+        //amount:l.b1,
         
        // amount:m.c,
       })
